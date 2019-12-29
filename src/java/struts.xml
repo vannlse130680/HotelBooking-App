@@ -1,0 +1,135 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default" namespace="/">
+        <action name="">
+            <result>search.jsp</result>
+        </action>
+        <action name="moveToLogin">
+            <result>login.html</result>
+        </action>
+        <action name="searchByHoTelName" class="action.SearchByHotelNameAction">
+            <result>search.jsp</result>
+            <result name="admin" >adSearch.jsp</result>
+            <result name="user" >userSearch.jsp</result>
+            
+        </action>
+        
+        <action name="searchByHoTelArea" class="action.SearchByHotelAreaAction">
+            <result>search.jsp</result>
+            <result name="admin" >adSearch.jsp</result>
+            <result name="user" >userSearch.jsp</result>
+        </action>
+        
+        <action name="login" class="action.LoginAction">
+            
+            <result name="user" type="redirect">userSearch.jsp</result>
+            <result name="admin" type="redirect">adSearch.jsp</result>
+            <result name="fail" type="redirect">invalid.html</result>
+        </action>
+        <action name="logout" class="action.LogoutAction">
+            
+            <result>search.jsp</result>
+        </action>
+        
+        <action name="moveToCreatePage">
+            
+            <result>createUser.jsp</result>
+        </action>
+        <action name="moveToSearchPage">
+            
+            <result>search.jsp</result>
+        </action>
+        <action name="moveToUserSearch">
+            
+            <result>userSearch.jsp</result>
+        </action>
+        <action name="createUser" class="action.CreateUserAction">
+            
+            <result>login.html</result>
+            <result name="fail">createUser.jsp</result>
+        </action>
+        <action name="addToCart" class="action.AddToCartAction">
+            <result name="name"  type="redirectAction">
+                <param name="actionName" >searchByHoTelName</param>
+                <param name="hotelNameSearch" >${hotelNameSearch}</param>
+                <param name="checkInDate" >${checkInDate}</param>
+                <param name="checkOutDate" >${checkOutDate}</param>
+                <param name="amount" >${amount}</param>
+            </result>
+            <result name="area"  type="redirectAction">
+                <param name="actionName" >searchByHoTelArea</param>
+                <param name="hotelAreaSearch" >${hotelAreaSearch}</param>
+                <param name="checkInDate" >${checkInDate}</param>
+                <param name="checkOutDate" >${checkOutDate}</param>
+                <param name="amount" >${amount}</param>
+            </result>
+        </action>
+        
+        <action name="viewCart">
+            
+            <result>viewCart.jsp</result>
+        </action>
+        <action name="removeItem" class="action.RemoveItemAction">
+            
+            <result>viewCart.jsp</result>
+        </action>
+        <action name="updateItem" class="action.UpdateItemAction">
+            
+            <result>viewCart.jsp</result>
+        </action>
+        
+        <action name="useCode" class="action.UseCodeAction">
+            
+            <result>viewCart.jsp</result>
+        </action>
+        
+        <action name="confirm" class="action.ConfirmAction">
+            
+            <result>userSearch.jsp</result>
+            <result name="fail">viewCart.jsp</result>
+        </action>
+        
+        <action name="viewHistory" class="action.ViewHistoryAction">
+            
+            <result>viewHistory.jsp</result>
+            
+        </action>
+        <action name="searchHistory" class="action.SearchHistoryAction">
+            
+            <result>viewHistory.jsp</result>
+            
+        </action>
+        <action name="delete" class="action.DeleteAction">
+            
+            <result  type="redirectAction">
+                <param name="actionName" >searchHistory</param>
+                <param name="hotelNameSearch" >${hotelNameSearch}</param>
+                <param name="bookingDateSearch" >${bookingDateSearch}</param>
+                
+            </result>
+        </action>
+        <action name="moveToFeedbackPage" class="action.SendFeedbackAction">
+            <result name="success">
+                feedback.jsp
+                
+            </result>
+            <result name="fail" type="redirectAction">
+                <param name="actionName" >searchHistory</param>
+                <param name="hotelNameSearch" >${hotelNameSearch}</param>
+                <param name="bookingDateSearch" >${bookingDateSearch}</param> 
+                <param name="isFeedbacked" >${isFeedbacked}</param>
+                          
+            </result>
+        </action>
+        <action name="storeFeedback" class="action.StoreFeedbackAction">
+            <result type="redirectAction">
+                <param name="actionName" >viewHistory</param>
+               
+            </result>
+        </action>
+    </package>
+</struts>
